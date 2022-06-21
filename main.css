@@ -1,0 +1,333 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: url(images/bg/japan.jpg);
+    background-size: cover;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    padding: 15px;
+    box-shadow: 0 0 10px #000;
+}
+
+.header-inner {
+    display: flex;
+}
+
+.logo {
+    width: 120px;
+}
+
+.logo__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.settings {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.control label {
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.timer-inner {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#moves {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.moves-inner {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.header-inner .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.button {
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.button:hover {
+    opacity: .5;
+}
+
+.button_start {
+    background-color: green;
+    color: #fff;
+}
+
+.button_stop {
+    background-color: red;
+    color: #fff;
+}
+
+main {
+    flex-grow: 1;
+}
+
+#app {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+}
+
+.columns {
+    flex-grow: 1;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.column {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-top: 25px;
+    box-shadow: inset 0 0 40px #fff;
+    border-radius: 20px;
+}
+
+.column.active {
+    background-color: rgba(137, 207, 240, .5);
+    cursor: grabbing;
+}
+
+.column.active:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    border-top: 25px solid white;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+}
+
+.column:not(.active) {
+    cursor: pointer;
+}
+
+.column.hovered .block:last-child {
+    margin-bottom: auto;
+}
+
+.column.disabled {
+    pointer-events: none;
+}
+
+
+.column.disabled .block {
+    opacity: 0.7;
+    background-color: grey;
+}
+
+.block {
+    height: 25px;
+    background-color: coral;
+    border-radius: 5px;
+    box-shadow: inset 0 -2px 5px #444;
+}
+
+footer {
+    padding: 15px;
+    background-color: rgba(0,0,0, .5);
+    box-shadow: 0 0 10px #000;
+    color: #fff;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Overlay & modal */
+#overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, .5);
+}
+
+#overlay.show,
+.modal.show {
+    display: block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: #fff;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    box-shadow: inset 0 0 5px #000;
+    font-size: 18px;
+    transition: background-color .3s;
+}
+
+.modal-close:hover {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid #000;
+}
+
+.modal-content {
+    padding: 15px;
+}
+
+#modal-scores table {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+#modal-scores table td,
+#modal-scores table th {
+    padding: 5px;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+tr.blink {
+    background: green;
+    color: white;
+}
+
+#modal-scores table th {
+    font-size: 18px;
+}
+
+#modal-scores .table-tabs {
+    border-collapse: collapse;
+}
+
+.table-tabs .tab.active {
+    background-color: #000;
+    color: #fff;
+}
+
+.table-tabs .tab:not(.active):hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+/* Countdown */
+#countdown {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    font-size: 150px;
+    transition: all .3s;
+    opacity: 0.5;
+}
+
+#countdown.show {
+    display: block;
+}
+
+#countdown.fadein {
+    animation: fadein 1s forwards;
+}
+
+@keyframes fadein {
+    0% {opacity: 0;}
+    100% {opacity: .5}
+}
+
+#countdown span {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    transition: all .5s;
+}
+
+#countdown span.in {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#countdown span.out {
+    left: 100%;
+    transform: translateX(0);
+}
